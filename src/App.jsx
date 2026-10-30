@@ -1,3 +1,4 @@
+import PomodoroTimer from './components/PomodoroTimer.jsx'
 import './App.css'
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
         <p className="tagline">Your little corner of focus.</p>
         <p className="description">A cozy space to focus, study, and grow.</p>
         <button type="button">Let's Focus</button>
+        <PomodoroTimer />
       </section>
     </main>
   )
