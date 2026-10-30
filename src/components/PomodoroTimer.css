@@ -19,6 +19,25 @@
   line-height: 1.2;
 }
 
+.timer-modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.timer-modes button {
+  flex: 1 1 120px;
+  padding: 10px 12px;
+  background: #fff0f5;
+}
+
+.timer-modes button[aria-pressed='true'] {
+  background: #edb1c7;
+  border-color: #8b4561;
+  box-shadow: inset 0 0 0 1px #8b4561;
+}
+
 .timer-controls {
   display: flex;
   flex-wrap: wrap;
