@@ -1,4 +1,5 @@
 import PomodoroTimer from './components/PomodoroTimer.jsx'
+import StudyCompanion from './components/StudyCompanion.jsx'
 import './App.css'
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
         <p className="description">A cozy space to focus, study, and grow.</p>
         <button type="button">Let's Focus</button>
         <PomodoroTimer />
+        <StudyCompanion />
       </section>
     </main>
   )
