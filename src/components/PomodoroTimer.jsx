@@ -9,7 +9,7 @@ const modes = {
 
 const defaultDurations = { focus: 25, shortBreak: 5, longBreak: 15 }
 
-function PomodoroTimer() {
+function PomodoroTimer({ onTimerStateChange }) {
   const [selectedMode, setSelectedMode] = useState('focus')
   const [durations, setDurations] = useState(defaultDurations)
   const [draftDurations, setDraftDurations] = useState(defaultDurations)
@@ -32,17 +32,19 @@ function PomodoroTimer() {
         clearInterval(intervalId)
         endTimeRef.current = null
         setIsRunning(false)
+        onTimerStateChange({ mode: selectedMode, status: 'completed' })
       }
     }, 1000)
 
     return () => clearInterval(intervalId)
-  }, [isRunning])
+  }, [isRunning, selectedMode, onTimerStateChange])
 
   function handleStart() {
     if (isRunning || seconds === 0) return
 
     endTimeRef.current = Date.now() + seconds * 1000
     setIsRunning(true)
+    onTimerStateChange({ mode: selectedMode, status: 'running' })
   }
 
   function handlePause() {
@@ -53,12 +55,15 @@ function PomodoroTimer() {
     setSeconds(remaining)
     setIsRunning(false)
     endTimeRef.current = null
+    // A delayed callback may mean the session finished before Pause was clicked.
+    onTimerStateChange({ mode: selectedMode, status: remaining === 0 ? 'completed' : 'paused' })
   }
 
   function handleReset() {
     setIsRunning(false)
     endTimeRef.current = null
     setSeconds(durations[selectedMode] * 60)
+    onTimerStateChange({ mode: selectedMode, status: 'idle' })
   }
 
   function handleModeChange(mode) {
@@ -66,6 +71,7 @@ function PomodoroTimer() {
     endTimeRef.current = null
     setSelectedMode(mode)
     setSeconds(durations[mode] * 60)
+    onTimerStateChange({ mode, status: 'idle' })
   }
 
   function handleSaveSettings(event) {
@@ -90,6 +96,7 @@ function PomodoroTimer() {
     setIsRunning(false)
     endTimeRef.current = null
     setSeconds(savedDurations[selectedMode] * 60)
+    onTimerStateChange({ mode: selectedMode, status: 'idle' })
   }
 
   const minutes = Math.floor(seconds / 60)

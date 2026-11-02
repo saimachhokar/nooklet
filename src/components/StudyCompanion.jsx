@@ -18,9 +18,24 @@ const companions = {
   },
 }
 
-function StudyCompanion() {
+function StudyCompanion({ mode, status }) {
   const [selectedCompanion, setSelectedCompanion] = useState('cleo')
   const companion = companions[selectedCompanion]
+  let message = 'Your study buddy is ready to focus with you!'
+
+  if (status === 'completed') {
+    message = 'You did it! Your study buddy is proud of you! 🎉'
+  } else if (status === 'paused') {
+    message = 'Your study buddy is waiting for you! ☕'
+  } else if (status === 'running') {
+    if (mode === 'focus') {
+      message = 'Your study buddy is studying with you! 📚'
+    } else if (mode === 'shortBreak') {
+      message = 'Time for a little rest! 💤'
+    } else if (mode === 'longBreak') {
+      message = 'Your study buddy is enjoying a cozy break! 🌙'
+    }
+  }
 
   return (
     <section className="study-companion" aria-labelledby="companion-heading">
@@ -41,7 +56,7 @@ function StudyCompanion() {
         <img className="companion-image" src={companion.image} alt={companion.alt} />
         <h3>{companion.name}</h3>
       </div>
-      <p>Your study buddy is ready to focus with you!</p>
+      <p role="status">{message}</p>
     </section>
   )
 }
