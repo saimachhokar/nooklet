@@ -2,14 +2,19 @@ import { useEffect, useRef, useState } from 'react'
 import './PomodoroTimer.css'
 
 const modes = {
-  focus: { label: '🍵 Focus', duration: 25 * 60 },
-  shortBreak: { label: '🌸 Short Break', duration: 5 * 60 },
-  longBreak: { label: '🌙 Long Break', duration: 15 * 60 },
+  focus: { label: '🍵 Focus' },
+  shortBreak: { label: '🌸 Short Break' },
+  longBreak: { label: '🌙 Long Break' },
 }
+
+const defaultDurations = { focus: 25, shortBreak: 5, longBreak: 15 }
 
 function PomodoroTimer() {
   const [selectedMode, setSelectedMode] = useState('focus')
-  const [seconds, setSeconds] = useState(modes.focus.duration)
+  const [durations, setDurations] = useState(defaultDurations)
+  const [draftDurations, setDraftDurations] = useState(defaultDurations)
+  const [settingsError, setSettingsError] = useState('')
+  const [seconds, setSeconds] = useState(defaultDurations.focus * 60)
   const [isRunning, setIsRunning] = useState(false)
   const endTimeRef = useRef(null)
 
@@ -53,14 +58,38 @@ function PomodoroTimer() {
   function handleReset() {
     setIsRunning(false)
     endTimeRef.current = null
-    setSeconds(modes[selectedMode].duration)
+    setSeconds(durations[selectedMode] * 60)
   }
 
   function handleModeChange(mode) {
     setIsRunning(false)
     endTimeRef.current = null
     setSelectedMode(mode)
-    setSeconds(modes[mode].duration)
+    setSeconds(durations[mode] * 60)
+  }
+
+  function handleSaveSettings(event) {
+    event.preventDefault()
+    const savedDurations = {}
+
+    for (const mode of Object.keys(modes)) {
+      const value = draftDurations[mode]
+      const minutes = Number(value)
+
+      if (String(value).trim() === '' || !Number.isInteger(minutes) || minutes < 1 || minutes > 180) {
+        setSettingsError(`${modes[mode].label}: enter a whole number between 1 and 180 minutes.`)
+        return
+      }
+
+      savedDurations[mode] = minutes
+    }
+
+    setDurations(savedDurations)
+    setDraftDurations(savedDurations)
+    setSettingsError('')
+    setIsRunning(false)
+    endTimeRef.current = null
+    setSeconds(savedDurations[selectedMode] * 60)
   }
 
   const minutes = Math.floor(seconds / 60)
@@ -90,6 +119,32 @@ function PomodoroTimer() {
         <button type="button" onClick={handlePause}>Pause</button>
         <button type="button" onClick={handleReset}>Reset</button>
       </div>
+      <form className="timer-settings" onSubmit={handleSaveSettings} noValidate>
+        <h3>Settings</h3>
+        <p id="duration-help">Session lengths in minutes (1–180).</p>
+        <div className="timer-settings-fields">
+          {Object.entries(modes).map(([mode, { label }]) => (
+            <label key={mode}>
+              {label}
+              <input
+                type="number"
+                min="1"
+                max="180"
+                step="1"
+                required
+                aria-describedby="duration-help settings-error"
+                value={draftDurations[mode]}
+                onChange={(event) => setDraftDurations({
+                  ...draftDurations,
+                  [mode]: event.target.value,
+                })}
+              />
+            </label>
+          ))}
+        </div>
+        <p id="settings-error" className="settings-error" role="alert">{settingsError}</p>
+        <button type="submit">Save Settings</button>
+      </form>
     </section>
   )
 }
