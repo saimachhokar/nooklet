@@ -37,10 +37,13 @@
   background: #fff0f5;
 }
 
-.companion-emoji {
+.companion-image {
   display: block;
-  font-size: clamp(4rem, 18vw, 6rem);
-  line-height: 1.2;
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  margin: 0 auto;
+  object-fit: contain;
 }
 
 .companion-preview h3 {
