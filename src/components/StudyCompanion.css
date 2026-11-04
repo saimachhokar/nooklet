@@ -42,6 +42,7 @@
   width: 100%;
   max-width: 360px;
   height: auto;
+  aspect-ratio: 3 / 2;
   margin: 0 auto;
   object-fit: contain;
 }
@@ -53,4 +54,46 @@
 
 .study-companion > p {
   margin-bottom: 0;
+}
+
+.companion-image--idle {
+  animation: companion-float 5s ease-in-out infinite;
+}
+
+.companion-image--focus {
+  animation: companion-breathe 4s ease-in-out infinite;
+}
+
+.companion-image--sleepy {
+  animation: companion-breathe 7s ease-in-out infinite;
+}
+
+.companion-image--paused {
+  animation: none;
+}
+
+.companion-image--completed {
+  animation: companion-bounce 700ms ease-in-out 1;
+}
+
+@keyframes companion-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes companion-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.015); }
+}
+
+@keyframes companion-bounce {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-8px); }
+  70% { transform: translateY(-2px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .companion-image {
+    animation: none;
+  }
 }
