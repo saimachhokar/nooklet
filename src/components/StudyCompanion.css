@@ -56,12 +56,9 @@
   margin-bottom: 0;
 }
 
-.companion-image--idle {
-  animation: companion-float 5s ease-in-out infinite;
-}
-
+.companion-image--idle,
 .companion-image--focus {
-  animation: companion-breathe 4s ease-in-out infinite;
+  animation: companion-breathe 3.5s ease-in-out infinite;
 }
 
 .companion-image--sleepy {
@@ -76,14 +73,9 @@
   animation: companion-bounce 700ms ease-in-out 1;
 }
 
-@keyframes companion-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
-}
-
 @keyframes companion-breathe {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.015); }
+  50% { transform: scale(1.007); }
 }
 
 @keyframes companion-bounce {

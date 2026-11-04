@@ -31,6 +31,7 @@ function StudyCompanion({ mode, status }) {
   const companion = companions[selectedCompanion]
   const isSleeping = status === 'running'
     && (mode === 'shortBreak' || mode === 'longBreak')
+
   let animation = 'idle'
   if (status === 'paused') {
     animation = 'paused'
