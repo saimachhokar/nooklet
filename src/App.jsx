@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import PomodoroTimer from './components/PomodoroTimer.jsx'
+import MusicPlayer from './components/MusicPlayer.jsx'
 import StudyCompanion from './components/StudyCompanion.jsx'
 import './App.css'
 
@@ -14,6 +15,7 @@ function App() {
     const savedTheme = window.localStorage.getItem('nooklet-theme')
     return Object.hasOwn(themes, savedTheme) ? savedTheme : 'cafe'
   })
+  const [isMusicPlayerOpen, setIsMusicPlayerOpen] = useState(false)
   const [timerState, setTimerState] = useState({ mode: 'focus', status: 'idle' })
 
   useEffect(() => {
@@ -40,8 +42,21 @@ function App() {
               </button>
             ))}
           </div>
-          <button type="button">Let's Focus</button>
+          <div className="dashboard-actions">
+            <button type="button">Let's Focus</button>
+            <button
+              className="music-toggle"
+              type="button"
+              aria-label={isMusicPlayerOpen ? 'Collapse music player' : 'Open music player'}
+              aria-expanded={isMusicPlayerOpen}
+              aria-controls="background-music-player"
+              onClick={() => setIsMusicPlayerOpen((isOpen) => !isOpen)}
+            >
+              ♫
+            </button>
+          </div>
         </header>
+        <MusicPlayer isOpen={isMusicPlayerOpen} />
         <div className="study-dashboard">
           <PomodoroTimer onTimerStateChange={setTimerState} />
           <StudyCompanion mode={timerState.mode} status={timerState.status} />
