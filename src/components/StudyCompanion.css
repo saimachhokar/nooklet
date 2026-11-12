@@ -35,24 +35,6 @@
   background: var(--surface);
 }
 
-.welcome-page[data-theme='cafe'] .companion-scene {
-  display: grid;
-  aspect-ratio: 16 / 9;
-  place-items: end center;
-  overflow: hidden;
-  border-radius: 12px;
-  background-image: url('../assets/cafe.png');
-  background-position: center bottom;
-  background-size: cover;
-}
-
-.welcome-page[data-theme='cafe'] .companion-image {
-  width: min(78%, 280px);
-  max-width: none;
-  margin: 0;
-  object-position: center bottom;
-}
-
 .companion-image {
   display: block;
   width: 100%;

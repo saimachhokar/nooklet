@@ -3,7 +3,7 @@
   --background-end: #f8e1e9;
   --text: #664a40;
   --heading: #714536;
-  --card: #fffbf5;
+  --card: rgb(255 251 245 / 90%);
   --surface: #fff0e8;
   --border: #dfc4b4;
   --control-border: #b77c68;
@@ -15,7 +15,11 @@
   --shadow: #87465e12;
   color-scheme: light;
   color: var(--text);
-  background: linear-gradient(135deg, var(--background), var(--background-end));
+  background-color: var(--background);
+  background-image: url('./assets/cafe-full.png');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   min-height: 100svh;
   display: grid;
   align-items: start;
@@ -28,7 +32,7 @@
   --background-end: #dce9dc;
   --text: #3e523c;
   --heading: #354d32;
-  --card: #f8fbf2;
+  --card: rgb(248 251 242 / 90%);
   --surface: #eaf1df;
   --border: #bdcdb1;
   --control-border: #7d966d;
@@ -38,6 +42,7 @@
   --focus-ring: #4b693c;
   --error: #9b3043;
   --shadow: #3f593012;
+  background-image: url('./assets/matcha-full.png');
 }
 
 .welcome-page[data-theme='midnight'] {
@@ -45,7 +50,7 @@
   --background-end: #2b2945;
   --text: #e2dfee;
   --heading: #f0eafa;
-  --card: #202a42;
+  --card: rgb(32 42 66 / 94%);
   --surface: #303951;
   --border: #606b86;
   --control-border: #8c83aa;
@@ -56,6 +61,7 @@
   --error: #ffb6c7;
   --shadow: #00000033;
   color-scheme: dark;
+  background-image: url('./assets/midnight-full.png');
 }
 
 .welcome-card {
