@@ -1,12 +1,6 @@
-.study-companion {
-  margin-top: 32px;
-  padding-top: 28px;
-  border-top: 1px solid #f2d4df;
-}
-
 .study-companion h2 {
   margin: 0;
-  color: #733b53;
+  color: var(--heading);
   font-size: 1.5rem;
 }
 
@@ -20,21 +14,43 @@
 
 .companion-options button {
   flex: 1 1 120px;
-  background: #fff0f5;
+  padding: 10px 12px;
+  background: var(--surface);
+  color: var(--text);
 }
 
 .companion-options button[aria-pressed='true'] {
-  background: #edb1c7;
-  border-color: #8b4561;
-  box-shadow: inset 0 0 0 1px #8b4561;
+  background: var(--accent);
+  color: var(--button-text);
+  border-color: var(--focus-ring);
+  box-shadow: inset 0 0 0 2px var(--focus-ring);
+  font-weight: 750;
 }
 
 .companion-preview {
   margin-top: 24px;
   padding: 20px;
-  border: 1px solid #f2d4df;
+  border: 1px solid var(--border);
   border-radius: 20px;
-  background: #fff0f5;
+  background: var(--surface);
+}
+
+.welcome-page[data-theme='cafe'] .companion-scene {
+  display: grid;
+  aspect-ratio: 16 / 9;
+  place-items: end center;
+  overflow: hidden;
+  border-radius: 12px;
+  background-image: url('../assets/cafe.png');
+  background-position: center bottom;
+  background-size: cover;
+}
+
+.welcome-page[data-theme='cafe'] .companion-image {
+  width: min(78%, 280px);
+  max-width: none;
+  margin: 0;
+  object-position: center bottom;
 }
 
 .companion-image {
@@ -49,7 +65,7 @@
 
 .companion-preview h3 {
   margin: 12px 0 0;
-  color: #733b53;
+  color: var(--heading);
 }
 
 .study-companion > p {

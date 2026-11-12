@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import cleoImage from '../assets/cleo.png'
 import cleoSleepImage from '../assets/cleo-sleep.png'
 import mochiImage from '../assets/mochi.png'
@@ -27,10 +27,17 @@ const companions = {
 }
 
 function StudyCompanion({ mode, status }) {
-  const [selectedCompanion, setSelectedCompanion] = useState('cleo')
+  const [selectedCompanion, setSelectedCompanion] = useState(() => {
+    const savedCompanion = window.localStorage.getItem('nooklet-companion')
+    return Object.hasOwn(companions, savedCompanion) ? savedCompanion : 'cleo'
+  })
   const companion = companions[selectedCompanion]
   const isSleeping = status === 'running'
     && (mode === 'shortBreak' || mode === 'longBreak')
+
+  useEffect(() => {
+    window.localStorage.setItem('nooklet-companion', selectedCompanion)
+  }, [selectedCompanion])
 
   let animation = 'idle'
   if (status === 'paused') {
@@ -73,11 +80,13 @@ function StudyCompanion({ mode, status }) {
         ))}
       </div>
       <div className="companion-preview" aria-live="polite">
-        <img
-          className={`companion-image companion-image--${animation}`}
-          src={isSleeping ? companion.images.sleeping : companion.images.awake}
-          alt={isSleeping ? `${companion.name} resting with eyes closed` : companion.alt}
-        />
+        <div className="companion-scene">
+          <img
+            className={`companion-image companion-image--${animation}`}
+            src={isSleeping ? companion.images.sleeping : companion.images.awake}
+            alt={isSleeping ? `${companion.name} resting with eyes closed` : companion.alt}
+          />
+        </div>
         <h3>{companion.name}</h3>
       </div>
       <p role="status">{message}</p>

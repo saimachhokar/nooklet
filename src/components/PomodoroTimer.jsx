@@ -126,32 +126,34 @@ function PomodoroTimer({ onTimerStateChange }) {
         <button type="button" onClick={handlePause}>Pause</button>
         <button type="button" onClick={handleReset}>Reset</button>
       </div>
-      <form className="timer-settings" onSubmit={handleSaveSettings} noValidate>
-        <h3>Settings</h3>
-        <p id="duration-help">Session lengths in minutes (1–180).</p>
-        <div className="timer-settings-fields">
-          {Object.entries(modes).map(([mode, { label }]) => (
-            <label key={mode}>
-              {label}
-              <input
-                type="number"
-                min="1"
-                max="180"
-                step="1"
-                required
-                aria-describedby="duration-help settings-error"
-                value={draftDurations[mode]}
-                onChange={(event) => setDraftDurations({
-                  ...draftDurations,
-                  [mode]: event.target.value,
-                })}
-              />
-            </label>
-          ))}
-        </div>
-        <p id="settings-error" className="settings-error" role="alert">{settingsError}</p>
-        <button type="submit">Save Settings</button>
-      </form>
+      <details className="timer-settings">
+        <summary>Session settings</summary>
+        <form onSubmit={handleSaveSettings} noValidate>
+          <p id="duration-help">Session lengths in minutes (1–180).</p>
+          <div className="timer-settings-fields">
+            {Object.entries(modes).map(([mode, { label }]) => (
+              <label key={mode}>
+                {label}
+                <input
+                  type="number"
+                  min="1"
+                  max="180"
+                  step="1"
+                  required
+                  aria-describedby="duration-help settings-error"
+                  value={draftDurations[mode]}
+                  onChange={(event) => setDraftDurations({
+                    ...draftDurations,
+                    [mode]: event.target.value,
+                  })}
+                />
+              </label>
+            ))}
+          </div>
+          <p id="settings-error" className="settings-error" role="alert">{settingsError}</p>
+          <button type="submit">Save Settings</button>
+        </form>
+      </details>
     </section>
   )
 }

@@ -1,18 +1,12 @@
-.pomodoro-timer {
-  margin-top: 32px;
-  padding-top: 28px;
-  border-top: 1px solid #f2d4df;
-}
-
 .pomodoro-timer h2 {
   margin: 0;
-  color: #733b53;
+  color: var(--heading);
   font-size: 1.5rem;
 }
 
 .timer-display {
   margin: 16px 0 24px;
-  color: #733b53;
+  color: var(--heading);
   font-size: clamp(3rem, 12vw, 4.5rem);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
@@ -26,16 +20,20 @@
   margin-top: 20px;
 }
 
-.timer-modes button {
-  flex: 1 1 120px;
-  padding: 10px 12px;
-  background: #fff0f5;
+.pomodoro-timer .timer-modes button {
+  flex: 1 1 96px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  padding: 8px 6px;
+  background: var(--surface);
+  color: var(--text);
 }
 
 .timer-modes button[aria-pressed='true'] {
-  background: #edb1c7;
-  border-color: #8b4561;
-  box-shadow: inset 0 0 0 1px #8b4561;
+  background: var(--accent-hover);
+  color: var(--button-text);
+  border-color: var(--focus-ring);
+  box-shadow: inset 0 0 0 1px var(--focus-ring);
 }
 
 .timer-controls {
@@ -45,20 +43,29 @@
   gap: 12px;
 }
 
-.timer-controls button {
+.pomodoro-timer .timer-controls button {
   flex: 1 1 100px;
+  padding: 10px 8px;
 }
 
 .timer-settings {
   margin-top: 28px;
   padding-top: 20px;
-  border-top: 1px solid #f2d4df;
+  border-top: 1px solid var(--border);
   text-align: left;
 }
 
-.timer-settings h3 {
-  margin: 0;
-  color: #733b53;
+.timer-settings summary {
+  color: var(--heading);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+.timer-settings summary:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 4px;
+  border-radius: 4px;
 }
 
 .timer-settings-fields {
@@ -78,20 +85,20 @@
   width: 100%;
   margin-top: 6px;
   padding: 10px;
-  border: 1px solid #dca0b6;
+  border: 1px solid var(--control-border);
   border-radius: 12px;
-  background: #fff0f5;
-  color: #603047;
+  background: var(--surface);
+  color: var(--text);
   font: inherit;
 }
 
 .timer-settings input:focus-visible {
-  outline: 3px solid #8b4561;
+  outline: 3px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
 .settings-error {
-  color: #9b294e;
+  color: var(--error);
 }
 
 .settings-error:empty {
@@ -100,4 +107,16 @@
 
 .timer-settings button {
   margin-top: 16px;
+}
+
+@media (min-width: 801px) {
+  .timer-display {
+    margin: 28px 0;
+    font-size: 5rem;
+  }
+
+  .timer-modes button {
+    padding: 8px 6px;
+    font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+  }
 }
